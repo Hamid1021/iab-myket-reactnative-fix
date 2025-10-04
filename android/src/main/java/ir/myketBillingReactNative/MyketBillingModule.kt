@@ -1,8 +1,8 @@
 package ir.myketBillingReactNative
 
+import android.app.Activity
 import com.facebook.react.bridge.*
 import ir.myket.billingclient.util.Purchase
-
 
 class MyketBillingModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -50,25 +50,26 @@ class MyketBillingModule(private val reactContext: ReactApplicationContext) : Re
 
   @ReactMethod
   fun usePurchase(purchase: Purchase, failureCallback: Callback, successCallback: Callback) {
-    consumeAsyncCallBack(purchase, {failureCallback.invoke(it)}, {successCallback.invoke(it)})
+    consumeAsyncCallBack(purchase, { failureCallback.invoke(it) }, { successCallback.invoke(it) })
   }
 
   private fun startActivity(
-      sku: String,
-      developerPayload: String?,
-      promise: Promise
+    sku: String,
+    developerPayload: String?,
+    failureCallback: Callback,
+    successCallback: Callback
   ) {
-      if (isNotInitializedOrCurrentlyActive()) {
-          promise.reject("E_NOT_CONNECTED", "Payment not connected!")
-          return
+    if (isNotInitializedOrCurrentlyActive()) {
+      failureCallback.invoke(IllegalStateException("Payment not connected!"))
+      return
+    }
+
+    val activity = reactApplicationContext.currentActivity
+      ?: run {
+        failureCallback.invoke(IllegalStateException("Activity not found!"))
+        return
       }
 
-      val activity = reactApplicationContext.currentActivity
-          ?: run {
-              promise.reject("E_NO_ACTIVITY", "Activity not found!")
-              return
-          }
-          
-      PaymentActivity.start(activity as Activity, sku, developerPayload, promise)
+    PaymentActivity.start(activity as Activity, sku, developerPayload, failureCallback, successCallback)
   }
 }

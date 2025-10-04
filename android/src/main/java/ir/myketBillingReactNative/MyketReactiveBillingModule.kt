@@ -1,17 +1,19 @@
 package ir.myketBillingReactNative
 
-
+import android.app.Activity
 import com.facebook.react.bridge.*
-
 
 class MyketReactiveBillingModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
   override fun getName(): String = "MyketReactiveBillingModule"
 
-
   @ReactMethod
-  fun connectPayment(rsaPublicKey: String?, promise: Promise) {
-    initializeCallBack(reactContext, rsaPublicKey, { promise.reject(it) }, { promise.resolve(it) })
+  fun connectPayment(rsaPublicKey: String?, failureCallback: Callback, successCallback: Callback) {
+    initializeCallBack(reactContext, rsaPublicKey, {
+      failureCallback.invoke(it)
+    }, {
+      successCallback.invoke(it)
+    })
   }
 
   @ReactMethod
@@ -19,43 +21,53 @@ class MyketReactiveBillingModule(private val reactContext: ReactApplicationConte
     enableDebug(boolean)
   }
 
-
   @ReactMethod
-  fun disconnectPayment(promise: Promise) {
-    disposeCallBack { promise.resolve(it) }
+  fun disconnectPayment(callback: Callback) {
+    disposeCallBack {
+      callback.invoke(it)
+    }
   }
 
   @ReactMethod
-  fun getPurchaseUpdate(querySkuDetails: Boolean?, moreSkus: ReadableArray?, promise: Promise) {
-    queryInventoryCallBack(querySkuDetails, moreSkus?.toStringList(), { promise.reject(it) }, { promise.resolve(it) })
+  fun getPurchaseUpdate(querySkuDetails: Boolean?, moreSkus: ReadableArray?, failureCallback: Callback, successCallback: Callback) {
+    queryInventoryCallBack(querySkuDetails, moreSkus?.toStringList(), {
+      failureCallback.invoke(it)
+    }, {
+      successCallback.invoke(it)
+    })
   }
 
   @ReactMethod
-  fun launchProcessFlow(sku: String?, developerPayload: String?, promise: Promise) {
-    startActivity(sku, developerPayload, promise)
+  fun launchProcessFlow(sku: String?, developerPayload: String?, failureCallback: Callback, successCallback: Callback) {
+    startActivity(sku, developerPayload, failureCallback, successCallback)
   }
 
   @ReactMethod
-  fun usePurchase(purchaseString: String?, promise: Promise) {
-    consumeAsyncCallBack(purchaseString?.parseToPurchase(), { promise.reject(it) }, { promise.resolve(it) })
+  fun usePurchase(purchaseString: String?, failureCallback: Callback, successCallback: Callback) {
+    consumeAsyncCallBack(purchaseString?.parseToPurchase(), {
+      failureCallback.invoke(it)
+    }, {
+      successCallback.invoke(it)
+    })
   }
 
   private fun startActivity(
-      sku: String,
-      developerPayload: String?,
-      promise: Promise
+    sku: String?,
+    developerPayload: String?,
+    failureCallback: Callback,
+    successCallback: Callback
   ) {
-      if (isNotInitializedOrCurrentlyActive()) {
-          promise.reject("E_NOT_CONNECTED", "Payment not connected!")
-          return
+    if (isNotInitializedOrCurrentlyActive()) {
+      failureCallback.invoke(IllegalStateException("Payment not connected!"))
+      return
+    }
+
+    val activity = reactApplicationContext.currentActivity
+      ?: run {
+        failureCallback.invoke(IllegalStateException("Activity not found!"))
+        return
       }
 
-      val activity = reactApplicationContext.currentActivity
-          ?: run {
-              promise.reject("E_NO_ACTIVITY", "Activity not found!")
-              return
-          }
-          
-      PaymentActivity.start(activity as Activity, sku, developerPayload, promise)
+    PaymentActivity.start(activity as Activity, sku, developerPayload, failureCallback, successCallback)
   }
 }
