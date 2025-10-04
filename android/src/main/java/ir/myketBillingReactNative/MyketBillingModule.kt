@@ -54,26 +54,21 @@ class MyketBillingModule(private val reactContext: ReactApplicationContext) : Re
   }
 
   private fun startActivity(
-    sku: String,
-    developerPayload: String?,
-    failureCallback: Callback,
-    successCallback: Callback
+      sku: String,
+      developerPayload: String?,
+      promise: Promise
   ) {
-    if (isNotInitializedOrCurrentlyActive()) {
-      failureCallback.invoke(IllegalStateException("Payment not connected!"))
-      return
-    }
-    // val activity = currentActivity
-    // if (activity == null) {
-    //   failureCallback.invoke(IllegalStateException("Activity not found!"))
-    //   return
-    // }
-    // PaymentActivity.start(activity, sku, developerPayload, failureCallback, successCallback)
-    val activity = reactApplicationContext.currentActivity
-    ?: run {
-        failureCallback.invoke(IllegalStateException("Activity not found!"))
-        return
-    }
-    PaymentActivity.start(activity as Activity, sku, developerPayload, failureCallback, successCallback)
+      if (isNotInitializedOrCurrentlyActive()) {
+          promise.reject("E_NOT_CONNECTED", "Payment not connected!")
+          return
+      }
+
+      val activity = reactApplicationContext.currentActivity
+          ?: run {
+              promise.reject("E_NO_ACTIVITY", "Activity not found!")
+              return
+          }
+          
+      PaymentActivity.start(activity as Activity, sku, developerPayload, promise)
   }
 }
