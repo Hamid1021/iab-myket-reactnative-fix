@@ -45,7 +45,8 @@ class MyketReactiveBillingModule(private val reactContext: ReactApplicationConte
       promise.reject(IllegalStateException("Payment not connected!"))
       return
     }
-    val activity = currentActivity
+    // val activity = currentActivity
+    val activity = getCurrentActivity()
     if (activity == null) {
       promise.reject(IllegalStateException("Activity not found!"))
       return
