@@ -46,12 +46,18 @@ class MyketReactiveBillingModule(private val reactContext: ReactApplicationConte
       return
     }
     // val activity = currentActivity
-    val activity = getCurrentActivity()
-    if (activity == null) {
-      promise.reject(IllegalStateException("Activity not found!"))
-      return
+    // if (activity == null) {
+    //  promise.reject(IllegalStateException("Activity not found!"))
+    //  return
+    // }
+    // PaymentActivity.start(activity, sku, developerPayload, promise)
+    val activity = reactApplicationContext.currentActivity
+    ?: run {
+        failureCallback.invoke(IllegalStateException("Activity not found!"))
+        return
     }
-    PaymentActivity.start(activity, sku, developerPayload, promise)
+    PaymentActivity.start(activity as Activity, sku, developerPayload, failureCallback, successCallback)
+
   }
 
 }
