@@ -63,7 +63,8 @@ class MyketBillingModule(private val reactContext: ReactApplicationContext) : Re
       failureCallback.invoke(IllegalStateException("Payment not connected!"))
       return
     }
-    val activity = currentActivity
+    // val activity = currentActivity
+    val activity = getCurrentActivity()
     if (activity == null) {
       failureCallback.invoke(IllegalStateException("Activity not found!"))
       return
