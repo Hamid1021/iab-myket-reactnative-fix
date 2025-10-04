@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="ir.myketBillingReactNative">
+  <application>
+    <activity
+      android:name="ir.myketBillingReactNative.PaymentActivity"
+      android:exported="false"
+      android:theme="@style/Theme.Transparent" />
+  </application>
+
+</manifest>

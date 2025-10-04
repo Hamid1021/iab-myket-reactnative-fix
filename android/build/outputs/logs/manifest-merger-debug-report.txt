@@ -1,0 +1,27 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:1:1-10:12
+	package
+		ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:2:11-47
+		INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:1:11-69
+application
+ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:3:3-8:17
+activity#ir.myketBillingReactNative.PaymentActivity
+ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:4:5-7:50
+	android:exported
+		ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:6:7-31
+	android:theme
+		ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:7:7-47
+	android:name
+		ADDED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:5:7-64
+uses-sdk
+INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml
+INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml

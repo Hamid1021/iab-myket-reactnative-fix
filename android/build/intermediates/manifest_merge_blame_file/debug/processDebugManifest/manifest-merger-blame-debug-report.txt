@@ -1,0 +1,19 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="ir.myketBillingReactNative" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <application>
+7-->D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:3:3-8:17
+8        <activity
+8-->D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:4:5-7:50
+9            android:name="ir.myketBillingReactNative.PaymentActivity"
+9-->D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:5:7-64
+10            android:exported="false"
+10-->D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:6:7-31
+11            android:theme="@style/Theme.Transparent" />
+11-->D:\myProject\Android\color-plus\node_modules\iab-myket-reactnative\android\src\main\AndroidManifest.xml:7:7-47
+12    </application>
+13
+14</manifest>

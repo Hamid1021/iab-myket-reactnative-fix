@@ -1,0 +1,2 @@
+ir.myketBillingReactNative
+style Theme_Transparent
